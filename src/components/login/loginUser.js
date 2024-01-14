@@ -75,6 +75,7 @@ const LoginComponent = (props) => {
       }
 
       setUser(res.user);
+      localStorage.setItem("user", JSON.stringify(res.user));
     } catch (error) {
       if (error.message == "This email doesn't Exist") {
         setLoginError("This email is not registered with our services");

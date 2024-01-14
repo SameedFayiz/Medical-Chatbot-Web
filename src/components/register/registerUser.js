@@ -86,6 +86,7 @@ const RegisterComponent = (props) => {
       }
 
       setUser(res.user);
+      localStorage.setItem("user", JSON.stringify(res.user));
     } catch (error) {
       if (error.message == "Email already in use") {
         setRegError("This email is registered with another account!");
