@@ -15,11 +15,13 @@ import {
   Stack,
 } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import { ChatContext } from "@/utils/chatContext";
 
 const Item = SideBarItem;
 
 const SideBar = (props) => {
   const [user, setUser] = useContext(AuthContext);
+  const [selectChat, setSelectChat] = useContext(ChatContext);
   const [chats, setChats] = useState([]);
   const [profile, setProfile] = useState(false);
   const [settings, setSettings] = useState(false);
@@ -148,9 +150,15 @@ const SideBar = (props) => {
                 key={index}
                 id={i._id}
                 onclick={(e) => {
-                  // console.log(e.target);
+                  let chatId = e.target.id;
+                  let tmp = chats.find((i) => {
+                    return i._id === chatId;
+                  });
+                  console.log(tmp);
+                  setSelectChat(tmp);
                 }}
                 onDelete={(e) => {
+                  e.stopPropagation();
                   delRef.current = e.target.parentNode;
                   setOpen(true);
                 }}

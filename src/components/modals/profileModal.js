@@ -1,5 +1,6 @@
 "use client";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/utils/authContext";
 import {
   Button,
   Dialog,
@@ -10,9 +11,16 @@ import {
 } from "@mui/material";
 
 const ProfileModal = (props) => {
+  const [user, setUser] = useContext(AuthContext);
   const [open, setOpen] = props.state;
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const userLogout = () => {
+    localStorage.clear("user");
+    setUser(null);
   };
 
   return (
@@ -29,13 +37,23 @@ const ProfileModal = (props) => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
             anonymous location data to Google, even when no apps are running.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} autoFocus>
-            OK
+          <Button
+            className="bg-slate-500 hover:bg-slate-400 text-white"
+            onClick={handleClose}
+            autoFocus
+          >
+            Close
+          </Button>
+          <Button
+            className="bg-red-600 hover:bg-red-600 text-white"
+            onClick={userLogout}
+            autoFocus
+          >
+            Logout
           </Button>
         </DialogActions>
       </Dialog>

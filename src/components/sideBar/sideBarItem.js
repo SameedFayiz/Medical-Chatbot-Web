@@ -7,7 +7,9 @@ const SideBarItem = (props) => {
       onClick={props.onclick}
       className="bg-white w-full h-10 flex justify-center items-center rounded-lg shadow-2xl shadow-black px-5 relative"
     >
-      <div className="flex items-center justify-center">{props.children}</div>
+      <div id={props.id} className="flex items-center justify-center">
+        {props.children}
+      </div>
       {props.newOpt ? null : (
         <Delete
           id={props.id}
