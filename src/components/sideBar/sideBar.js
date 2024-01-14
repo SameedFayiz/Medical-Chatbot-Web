@@ -62,6 +62,7 @@ const SideBar = (props) => {
       });
       let res = await myRequest.json();
       console.log(res);
+      setSelectChat(null);
       return res;
     } catch (error) {
       return error;
@@ -88,7 +89,6 @@ const SideBar = (props) => {
       console.log(error);
     }
   };
-
   return (
     <>
       <Dialog
@@ -154,7 +154,6 @@ const SideBar = (props) => {
                   let tmp = chats.find((i) => {
                     return i._id === chatId;
                   });
-                  console.log(tmp);
                   setSelectChat(tmp);
                 }}
                 onDelete={(e) => {
@@ -168,8 +167,8 @@ const SideBar = (props) => {
             );
           })}
           <Item onclick={createChat} newOpt={true}>
-            New Chat
-            <Add className="text-lg ms-1" />
+            <p className="text-sm"> New chat</p>
+            <Add className="flex text-sm ms-1" />
           </Item>
         </Stack>
         <div
