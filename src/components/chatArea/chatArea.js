@@ -52,6 +52,8 @@ const ChatArea = (props) => {
       };
       let url = process.env.NEXT_PUBLIC_BACKEND_URL
         ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : process.env.BACKEND_URL
+        ? process.env.BACKEND_URL
         : "http://localhost:3001/";
       let myRequest = await fetch(`${url}chats/sendMessage`, {
         body: JSON.stringify(reqBody),
@@ -74,7 +76,7 @@ const ChatArea = (props) => {
     setPrompt("");
     setLoading(false);
   };
-  
+
   return (
     <div className="w-full h-[575px] max-h-full flex flex-col border-2 border-slate-600 rounded-md overflow-hidden bg-slate-100">
       <div className="flex flex-col flex-auto gap-4 overflow-y-scroll p-10 relative">

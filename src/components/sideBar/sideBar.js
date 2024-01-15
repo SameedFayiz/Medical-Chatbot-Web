@@ -46,6 +46,8 @@ const SideBar = (props) => {
         try {
           let url = process.env.NEXT_PUBLIC_BACKEND_URL
             ? process.env.NEXT_PUBLIC_BACKEND_URL
+            : process.env.BACKEND_URL
+            ? process.env.BACKEND_URL
             : "http://localhost:3001/";
           let myRequest = await fetch(`${url}chats/findByUserId/${user?._id}`);
           let res = await myRequest.json();
@@ -71,6 +73,8 @@ const SideBar = (props) => {
     try {
       let url = process.env.NEXT_PUBLIC_BACKEND_URL
         ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : process.env.BACKEND_URL
+        ? process.env.BACKEND_URL
         : "http://localhost:3001/";
       let myRequest = await fetch(`${url}chats/${id}`, {
         method: "GET",
@@ -91,6 +95,8 @@ const SideBar = (props) => {
     try {
       let url = process.env.NEXT_PUBLIC_BACKEND_URL
         ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : process.env.BACKEND_URL
+        ? process.env.BACKEND_URL
         : "http://localhost:3001/";
       let myRequest = await fetch(`${url}chats/${param}`, {
         method: "DELETE",
@@ -117,6 +123,8 @@ const SideBar = (props) => {
     try {
       let url = process.env.NEXT_PUBLIC_BACKEND_URL
         ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : process.env.BACKEND_URL
+        ? process.env.BACKEND_URL
         : "http://localhost:3001/";
       let reqBody = { userId: user?._id };
       let myRequest = await fetch(`${url}chats/`, {

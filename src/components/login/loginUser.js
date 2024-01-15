@@ -65,6 +65,8 @@ const LoginComponent = (props) => {
     try {
       let url = process.env.NEXT_PUBLIC_BACKEND_URL
         ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : process.env.BACKEND_URL
+        ? process.env.BACKEND_URL
         : "http://localhost:3001/";
       let myRequest = await fetch(`${url}users/login`, {
         body: JSON.stringify(reqBody),
