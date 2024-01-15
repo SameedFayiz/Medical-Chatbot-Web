@@ -17,6 +17,7 @@ import {
 import { Add, SmartToyRounded } from "@mui/icons-material";
 import { ChatContext } from "@/utils/chatContext";
 import { ModalContext } from "@/utils/modalContext";
+import { ChatLoadContext } from "@/utils/chatLoadContext";
 
 const Item = SideBarItem;
 
@@ -24,6 +25,7 @@ const SideBar = (props) => {
   const [user, setUser] = useContext(AuthContext);
   const [selectChat, setSelectChat] = useContext(ChatContext);
   const [modal, setModal] = useContext(ModalContext);
+  const [load, setLoad] = useContext(ChatLoadContext);
   const [chats, setChats] = useState([]);
   const [profile, setProfile] = useState(false);
   const [settings, setSettings] = useState(false);
@@ -63,7 +65,26 @@ const SideBar = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  const getChatById = async (id) => {
+    setLoad(true);
+    try {
+      let myRequest = await fetch(`http://localhost:3001/chats/${id}`, {
+        method: "GET",
+      });
+      let res = await myRequest.json();
+      setLoad(false);
+      if (res.error) {
+        throw res;
+      }
+      setSelectChat({ ...res.chat });
+    } catch (error) {
+      let tmp = { open: true, type: "", body: "Chat load failed!" };
+      setModal({ ...tmp });
+    }
+  };
+
   const deleteChat = async (param) => {
+    console.log(chats);
     try {
       let myRequest = await fetch(`http://localhost:3001/chats/${param}`, {
         method: "DELETE",
@@ -78,6 +99,7 @@ const SideBar = (props) => {
         type: "success",
         body: "Chat deleted successfully!",
       };
+      console.log(chats);
       setModal({ ...tmp });
       return res;
     } catch (error) {
@@ -181,10 +203,7 @@ const SideBar = (props) => {
                 id={i._id}
                 onclick={(e) => {
                   let chatId = e.target.id;
-                  let tmp = chats.find((i) => {
-                    return i._id === chatId;
-                  });
-                  setSelectChat(tmp);
+                  getChatById(chatId);
                 }}
                 onDelete={(e) => {
                   e.stopPropagation();

@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import MessageBox from "../messageBox/messageBox";
 import { ChatContext } from "@/utils/chatContext";
+import { ModalContext } from "@/utils/modalContext";
+import { ChatLoadContext } from "@/utils/chatLoadContext";
+import Image from "next/image";
 import {
   CircularProgress,
   IconButton,
@@ -8,11 +11,12 @@ import {
   TextField,
 } from "@mui/material";
 import { Send } from "@mui/icons-material";
-import { ModalContext } from "@/utils/modalContext";
 
 const ChatArea = (props) => {
   const [selectChat, setSelectChat] = useContext(ChatContext);
   const [modal, setModal] = useContext(ModalContext);
+  const [load, setLoad] = useContext(ChatLoadContext);
+
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,7 +42,7 @@ const ChatArea = (props) => {
     setLoading(true);
     setPrompt("waiting for response...");
     try {
-      let reqBody = { chatId: selectChat._id, message: prompt };
+      let reqBody = { chatId: selectChat._id, message: prompt, static: "true" };
       let myRequest = await fetch("http://localhost:3001/chats/sendMessage", {
         body: JSON.stringify(reqBody),
         method: "POST",
@@ -63,7 +67,22 @@ const ChatArea = (props) => {
 
   return (
     <div className="w-full h-[575px] max-h-full flex flex-col border-2 border-slate-600 rounded-md overflow-hidden bg-slate-100">
-      <div className="flex flex-col flex-auto gap-4 overflow-y-scroll p-10">
+      <div className="flex flex-col flex-auto gap-4 overflow-y-scroll p-10 relative">
+        {load ? (
+          <CircularProgress className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]" />
+        ) : null}
+        {!selectChat ? (
+          <div className="flex flex-col justify-center items-center absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] font-semibold text-slate-500">
+            <Image
+              className="rounded-full mb-2"
+              src={"/sleepImg.jpg"}
+              alt="Bot sleeping"
+              width={150}
+              height={150}
+            />
+            No chat selected
+          </div>
+        ) : null}
         {messages?.map((i, index) => {
           return (
             <MessageBox key={index} username={i.from} message={i.message} />
