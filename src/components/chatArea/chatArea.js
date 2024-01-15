@@ -58,7 +58,7 @@ const ChatArea = (props) => {
       let myRequest = await fetch(`${url}chats/sendMessage`, {
         body: JSON.stringify(reqBody),
         method: "POST",
-        mode: "no-cors",
+        mode: "cors",
         headers: { "Content-Type": "application/json" },
       });
       let res = await myRequest.json();
