@@ -74,7 +74,10 @@ const RegisterComponent = (props) => {
 
     // After Validation
     try {
-      let myRequest = await fetch("http://localhost:3001/users", {
+      let url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:3001/";
+      let myRequest = await fetch(`${url}users`, {
         body: JSON.stringify(reqBody),
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@/utils/authContext";
 import {
   Avatar,
@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   TextField,
 } from "@mui/material";
@@ -15,7 +14,6 @@ import {
 const ProfileModal = (props) => {
   const [user, setUser] = useContext(AuthContext);
   const [open, setOpen] = props.state;
-  const [emailCheck, setEmailCheck] = useState(false);
 
   const handleClose = () => {
     setOpen(false);

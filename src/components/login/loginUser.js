@@ -63,7 +63,10 @@ const LoginComponent = (props) => {
 
     // After Validation
     try {
-      let myRequest = await fetch("http://localhost:3001/users/login", {
+      let url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:3001/";
+      let myRequest = await fetch(`${url}users/login`, {
         body: JSON.stringify(reqBody),
         method: "POST",
         headers: { "Content-Type": "application/json" },

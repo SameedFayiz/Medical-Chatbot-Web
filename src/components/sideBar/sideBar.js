@@ -44,9 +44,10 @@ const SideBar = (props) => {
     (async () => {
       if (user) {
         try {
-          let myRequest = await fetch(
-            `http://localhost:3001/chats/findByUserId/${user?._id}`
-          );
+          let url = process.env.NEXT_PUBLIC_BACKEND_URL
+            ? process.env.NEXT_PUBLIC_BACKEND_URL
+            : "http://localhost:3001/";
+          let myRequest = await fetch(`${url}chats/findByUserId/${user?._id}`);
           let res = await myRequest.json();
           if (res.error) {
             throw res;
@@ -68,7 +69,10 @@ const SideBar = (props) => {
   const getChatById = async (id) => {
     setLoad(true);
     try {
-      let myRequest = await fetch(`http://localhost:3001/chats/${id}`, {
+      let url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:3001/";
+      let myRequest = await fetch(`${url}chats/${id}`, {
         method: "GET",
       });
       let res = await myRequest.json();
@@ -85,7 +89,10 @@ const SideBar = (props) => {
 
   const deleteChat = async (param) => {
     try {
-      let myRequest = await fetch(`http://localhost:3001/chats/${param}`, {
+      let url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:3001/";
+      let myRequest = await fetch(`${url}chats/${param}`, {
         method: "DELETE",
       });
       let res = await myRequest.json();
@@ -108,8 +115,11 @@ const SideBar = (props) => {
 
   const createChat = async () => {
     try {
+      let url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:3001/";
       let reqBody = { userId: user?._id };
-      let myRequest = await fetch(`http://localhost:3001/chats/`, {
+      let myRequest = await fetch(`${url}chats/`, {
         method: "POST",
         body: JSON.stringify(reqBody),
         headers: { "Content-Type": "application/json" },
