@@ -103,7 +103,7 @@ const ChatArea = (props) => {
             className="p-0"
             checked={staticRes}
             onChange={() => {
-              staticRes(!staticRes);
+              setStaticRes(!staticRes);
             }}
           />
         </div>
