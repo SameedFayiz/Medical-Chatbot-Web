@@ -71,7 +71,6 @@ const ChatArea = (props) => {
     setPrompt("");
     setLoading(false);
   };
-
   return (
     <div className="w-full h-[575px] max-h-full flex flex-col border-2 border-slate-600 rounded-md overflow-hidden bg-slate-100">
       <div className="flex flex-col flex-auto gap-4 overflow-y-scroll p-10 relative">

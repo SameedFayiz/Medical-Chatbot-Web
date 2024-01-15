@@ -84,7 +84,6 @@ const SideBar = (props) => {
   };
 
   const deleteChat = async (param) => {
-    console.log(chats);
     try {
       let myRequest = await fetch(`http://localhost:3001/chats/${param}`, {
         method: "DELETE",
@@ -99,7 +98,6 @@ const SideBar = (props) => {
         type: "success",
         body: "Chat deleted successfully!",
       };
-      console.log(chats);
       setModal({ ...tmp });
       return res;
     } catch (error) {
