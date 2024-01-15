@@ -48,7 +48,7 @@ const SideBar = (props) => {
             ? process.env.NEXT_PUBLIC_BACKEND_URL
             : process.env.BACKEND_URL
             ? process.env.BACKEND_URL
-            : "http://localhost:3001/";
+            : "https://defiant-slug-jewelry.cyclic.app/";
           let myRequest = await fetch(`${url}chats/findByUserId/${user?._id}`);
           let res = await myRequest.json();
           if (res.error) {
@@ -75,7 +75,7 @@ const SideBar = (props) => {
         ? process.env.NEXT_PUBLIC_BACKEND_URL
         : process.env.BACKEND_URL
         ? process.env.BACKEND_URL
-        : "http://localhost:3001/";
+        : "https://defiant-slug-jewelry.cyclic.app/";
       let myRequest = await fetch(`${url}chats/${id}`, {
         method: "GET",
       });
@@ -97,7 +97,7 @@ const SideBar = (props) => {
         ? process.env.NEXT_PUBLIC_BACKEND_URL
         : process.env.BACKEND_URL
         ? process.env.BACKEND_URL
-        : "http://localhost:3001/";
+        : "https://defiant-slug-jewelry.cyclic.app/";
       let myRequest = await fetch(`${url}chats/${param}`, {
         method: "DELETE",
       });
@@ -125,7 +125,7 @@ const SideBar = (props) => {
         ? process.env.NEXT_PUBLIC_BACKEND_URL
         : process.env.BACKEND_URL
         ? process.env.BACKEND_URL
-        : "http://localhost:3001/";
+        : "https://defiant-slug-jewelry.cyclic.app/";
       let reqBody = { userId: user?._id };
       let myRequest = await fetch(`${url}chats/`, {
         method: "POST",

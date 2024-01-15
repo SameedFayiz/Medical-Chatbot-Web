@@ -67,7 +67,7 @@ const LoginComponent = (props) => {
         ? process.env.NEXT_PUBLIC_BACKEND_URL
         : process.env.BACKEND_URL
         ? process.env.BACKEND_URL
-        : "http://localhost:3001/";
+        : "https://defiant-slug-jewelry.cyclic.app/";
       let myRequest = await fetch(`${url}users/login`, {
         body: JSON.stringify(reqBody),
         method: "POST",
