@@ -79,7 +79,7 @@ const ChatArea = (props) => {
           maxRows={3}
           multiline
           variant="outlined"
-          disabled={loading}
+          disabled={loading || !selectChat}
           onChange={(e) => {
             setPrompt(e.target.value);
           }}
