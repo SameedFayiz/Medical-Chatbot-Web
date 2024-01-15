@@ -20,7 +20,7 @@ export default function Home() {
 
   if (!user) {
     return (
-      <main className="relative flex min-h-screen flex-col items-center justify-center">
+      <main className="relative flex min-h-screen flex-col items-center justify-center p-8">
         <Image
           src={"/sampleBG4.jpg"}
           alt="Background Image"

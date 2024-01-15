@@ -102,25 +102,29 @@ const LoginComponent = (props) => {
           alignItems: "center",
         }}
       >
-        <div className="flex flex-col items-center mb-3">
+        <div className="flex flex-col items-center md:mb-3">
           <div className="relative overflow-hidden rounded-full mb-2 bg-blue-800 p-2">
             <Image
-              src="/logo-transparent.jpeg"
+              src="/logoTransparent.jpeg"
               alt="logo"
-              width={120}
-              height={120}
+              height={100}
+              width={100}
             />
           </div>
-          <p className="text-2xl font-bold tracking-wide">Sign In</p>
+          <p className="text-xl md:text-2xl font-bold tracking-wide">Sign In</p>
         </div>
 
         {loginError ? (
-          <Alert severity="error" className="w-full justify-center mb-3">
+          <Alert
+            severity="error"
+            className="w-full justify-center text-center md:text-base text-xs md:mb-3"
+          >
             {loginError}
           </Alert>
         ) : null}
         <Box component="form" noValidate onSubmit={handleSubmit}>
           <TextField
+            className="mt-0 md:mt-2"
             margin="normal"
             required
             fullWidth
@@ -137,6 +141,7 @@ const LoginComponent = (props) => {
             error={emailCheck}
           />
           <TextField
+            className="mt-0"
             margin="normal"
             required
             fullWidth
@@ -164,27 +169,39 @@ const LoginComponent = (props) => {
             }}
           />
           <FormControlLabel
-            control={<Checkbox value={0} color="primary" />}
-            label="Remember me"
+            sx={{ height: 16 }}
+            control={
+              <Checkbox
+                sx={{ "& .MuiSvgIcon-root": { fontSize: 20 } }}
+                value={0}
+                color="primary"
+              />
+            }
+            label={<div className="text-xs md:text-base">Remember me</div>}
           />
           <Button
             disabled={loading}
             type="submit"
             fullWidth
             variant="contained"
-            className="bg-blue-700 hover:bg-blue-500 mt-3 mb-2"
+            className="bg-blue-700 hover:bg-blue-500 mt-3 mb-2 text-xs md:text-base"
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link className="no-underline" href="#" variant="body2">
+              <Link
+                className="no-underline text-xs md:text-base"
+                href="#"
+                variant="body2"
+              >
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
                 <button
+                  className="text-xs md:text-base"
                   onClick={() => {
                     props.onclick(true);
                   }}

@@ -14,14 +14,16 @@ import {
   Divider,
   Stack,
 } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Add, SmartToyRounded } from "@mui/icons-material";
 import { ChatContext } from "@/utils/chatContext";
+import { ModalContext } from "@/utils/modalContext";
 
 const Item = SideBarItem;
 
 const SideBar = (props) => {
   const [user, setUser] = useContext(AuthContext);
   const [selectChat, setSelectChat] = useContext(ChatContext);
+  const [modal, setModal] = useContext(ModalContext);
   const [chats, setChats] = useState([]);
   const [profile, setProfile] = useState(false);
   const [settings, setSettings] = useState(false);
@@ -49,10 +51,16 @@ const SideBar = (props) => {
           }
           setChats(res.chats);
         } catch (error) {
-          console.log(error);
+          let tmp = {
+            open: true,
+            type: "",
+            body: "Some error has occured please reload the page",
+          };
+          setModal({ ...tmp });
         }
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const deleteChat = async (param) => {
@@ -61,11 +69,20 @@ const SideBar = (props) => {
         method: "DELETE",
       });
       let res = await myRequest.json();
-      console.log(res);
+      if (res.error) {
+        throw res;
+      }
       setSelectChat(null);
+      let tmp = {
+        open: true,
+        type: "success",
+        body: "Chat deleted successfully!",
+      };
+      setModal({ ...tmp });
       return res;
     } catch (error) {
-      return error;
+      let tmp = { open: true, type: "", body: "Chat deletion failed!" };
+      setModal({ ...tmp });
     }
   };
 
@@ -81,14 +98,22 @@ const SideBar = (props) => {
       if (res.error) {
         throw res;
       }
-      console.log(res);
       let tmp = chats;
       tmp.push(res.chat);
       setChats([...tmp]);
+      setModal({
+        open: true,
+        type: "success",
+        body: "Chat created successfully",
+      });
     } catch (error) {
-      console.log(error);
+      if (error.message == "Maximum chats limit has reached") {
+        let tmp = { open: true, type: "", body: error.message };
+        setModal({ ...tmp });
+      }
     }
   };
+
   return (
     <>
       <Dialog
@@ -139,9 +164,14 @@ const SideBar = (props) => {
       <ProfileModal state={[profile, setProfile]} />
       <SettingsModal state={[settings, setSettings]} />
       <div className="w-full h-full flex flex-col px-2">
-        <div className="text-2xl font-bold tracking-wider mb-2">Chats</div>
+        <div className="flex items-center gap-1 text-white text-lg lg:text-2xl font-bold tracking-wider mb-2 uppercase">
+          Chats
+          <SmartToyRounded />
+        </div>
         <Stack
-          divider={<Divider orientation="horizontal" flexItem />}
+          divider={
+            <Divider className="bg-white" orientation="horizontal" flexItem />
+          }
           spacing={1}
         >
           {chats?.map((i, index) => {
@@ -167,12 +197,14 @@ const SideBar = (props) => {
             );
           })}
           <Item onclick={createChat} newOpt={true}>
-            <p className="text-sm"> New chat</p>
-            <Add className="flex text-sm ms-1" />
+            <div className="flex items-center text-sm lg:text-base">
+              New chat
+              <Add className="text-sm lg:text-base text-[10px]" />
+            </div>
           </Item>
         </Stack>
         <div
-          className="bg-white w-full h-10 mt-auto mb-2 flex justify-center items-center rounded-lg shadow-2xl shadow-black"
+          className="mt-auto mb-4 w-full h-10 flex justify-center items-center rounded-lg bg-white shadow-2xl shadow-white px-5 relative hover:bg-slate-100 transition duration-200 ease-in-out hover:scale-105 text-sm lg:text-base"
           onClick={() => {
             handleClick(setProfile);
           }}
@@ -180,7 +212,7 @@ const SideBar = (props) => {
           Profile
         </div>
         <div
-          className="bg-white w-full h-10 flex justify-center items-center rounded-lg shadow-2xl shadow-black"
+          className="w-full h-10 flex justify-center items-center rounded-lg bg-white shadow-2xl shadow-white px-5 relative hover:bg-slate-100 transition duration-200 ease-in-out hover:scale-105 text-sm lg:text-base"
           onClick={() => {
             handleClick(setSettings);
           }}

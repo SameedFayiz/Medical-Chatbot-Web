@@ -10,6 +10,11 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useEffect } from "react";
+import {
+  CheckCircleRounded,
+  ErrorRounded,
+  InfoRounded,
+} from "@mui/icons-material";
 
 const MultiModal = () => {
   const [modal, setModal] = useContext(ModalContext);
@@ -58,11 +63,22 @@ const MultiModal = () => {
           className={`text-white text-lg font-semibold py-2 ${theme.bg}`}
           id="alert-dialog-title"
         >
-          {modal.type == "info"
-            ? "Info"
-            : modal.type == "success"
-            ? "Success"
-            : "Error"}
+          {modal.type == "info" ? (
+            <div className="flex items-center gap-1">
+              Infomation
+              <InfoRounded />
+            </div>
+          ) : modal.type == "success" ? (
+            <div className="flex items-center gap-1">
+              Success
+              <CheckCircleRounded />
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              Error
+              <ErrorRounded />
+            </div>
+          )}
         </DialogTitle>
         <DialogContent className=" pb-0 px-6">
           <DialogContentText

@@ -8,9 +8,11 @@ import {
   TextField,
 } from "@mui/material";
 import { Send } from "@mui/icons-material";
+import { ModalContext } from "@/utils/modalContext";
 
 const ChatArea = (props) => {
   const [selectChat, setSelectChat] = useContext(ChatContext);
+  const [modal, setModal] = useContext(ModalContext);
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
@@ -48,24 +50,27 @@ const ChatArea = (props) => {
       }
       setSelectChat({ ...res.chat });
     } catch (error) {
-      console.log(error);
+      let tmp = {
+        open: true,
+        type: "",
+        body: "Failed to get response, Due to some error!",
+      };
+      setModal({ ...tmp });
     }
     setPrompt("");
     setLoading(false);
   };
 
   return (
-    <div className="w-full h-full flex flex-col border-2 border-slate-600 rounded-md overflow-hidden bg-slate-300">
-      <div className="w-full grow">
-        <div className="flex flex-col gap-5 overflow-y-scroll p-10 max-h-[70vh]">
-          {messages?.map((i, index) => {
-            return (
-              <MessageBox key={index} username={i.from} message={i.message} />
-            );
-          })}
-        </div>
+    <div className="w-full h-[575px] max-h-full flex flex-col border-2 border-slate-600 rounded-md overflow-hidden bg-slate-100">
+      <div className="flex flex-col flex-auto gap-4 overflow-y-scroll p-10">
+        {messages?.map((i, index) => {
+          return (
+            <MessageBox key={index} username={i.from} message={i.message} />
+          );
+        })}
       </div>
-      <div className="w-full bg-white py-5 px-4 lg:px-20">
+      <div className="w-full mt-auto bg-white py-5 px-4 lg:px-10">
         <TextField
           value={prompt}
           className="w-full"

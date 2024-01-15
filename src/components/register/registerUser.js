@@ -114,16 +114,19 @@ const RegisterComponent = (props) => {
         <div className="flex flex-col items-center mb-3">
           <div className="relative overflow-hidden rounded-full mb-2 bg-blue-800 p-2">
             <Image
-              src="/logo-transparent.jpeg"
+              src="/logoTransparent.jpeg"
               alt="logo"
-              width={120}
-              height={120}
+              width={100}
+              height={100}
             />
           </div>
-          <p className="text-2xl font-bold tracking-wide">Sign up</p>
+          <p className="text-xl md:text-2xl font-bold tracking-wide">Sign up</p>
         </div>
         {regError ? (
-          <Alert severity="error" className="w-full justify-center mb-3">
+          <Alert
+            severity="error"
+            className="w-full justify-center mb-3 text-xs md:text-base"
+          >
             {regError}
           </Alert>
         ) : null}
@@ -137,6 +140,7 @@ const RegisterComponent = (props) => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                className="mt-0 md:mt-2"
                 autoComplete="given-name"
                 name="firstName"
                 required
@@ -153,6 +157,7 @@ const RegisterComponent = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                className="mt-0 md:mt-2"
                 required
                 fullWidth
                 id="lastName"
@@ -168,6 +173,7 @@ const RegisterComponent = (props) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                className="mt-0"
                 type="email"
                 required
                 fullWidth
@@ -184,6 +190,7 @@ const RegisterComponent = (props) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                className="mt-0"
                 required
                 fullWidth
                 name="password"
@@ -220,7 +227,7 @@ const RegisterComponent = (props) => {
             disabled={loading}
             type="submit"
             fullWidth
-            className="bg-blue-700 hover:bg-blue-500 mt-3 mb-2"
+            className="bg-blue-700 hover:bg-blue-500 mt-3 mb-2 text-xs md:text-base"
             variant="contained"
           >
             Sign Up
@@ -232,6 +239,7 @@ const RegisterComponent = (props) => {
                   onClick={() => {
                     props.onclick(false);
                   }}
+                  className="text-xs md:text-base"
                 >
                   Already have an account? Sign in
                 </button>
