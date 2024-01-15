@@ -26,8 +26,7 @@ const SettingsModal = (props) => {
         <DialogTitle id="alert-dialog-title">Settings</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+            No settings available at this time.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

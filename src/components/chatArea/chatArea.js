@@ -5,6 +5,7 @@ import { ModalContext } from "@/utils/modalContext";
 import { ChatLoadContext } from "@/utils/chatLoadContext";
 import Image from "next/image";
 import {
+  Checkbox,
   CircularProgress,
   IconButton,
   InputAdornment,
@@ -20,6 +21,7 @@ const ChatArea = (props) => {
   const [messages, setMessages] = useState([]);
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
+  const [staticRes, setStaticRes] = useState(false);
 
   useEffect(() => {
     if (selectChat) {
@@ -41,8 +43,13 @@ const ChatArea = (props) => {
   const sendMessage = async () => {
     setLoading(true);
     setPrompt("waiting for response...");
+
     try {
-      let reqBody = { chatId: selectChat._id, message: prompt, static: "true" };
+      let reqBody = {
+        chatId: selectChat._id,
+        message: prompt,
+        staticRes: staticRes ? true : null,
+      };
       let myRequest = await fetch("http://localhost:3001/chats/sendMessage", {
         body: JSON.stringify(reqBody),
         method: "POST",
@@ -89,7 +96,17 @@ const ChatArea = (props) => {
           );
         })}
       </div>
-      <div className="w-full mt-auto bg-white py-5 px-4 lg:px-10">
+      <div className="w-full flex gap-4 mt-auto bg-white py-5 px-4 lg:px-10">
+        <div className="flex gap-1 justify-center items-center text-sm">
+          <p className="text-slate-600 font-medium">Static</p>
+          <Checkbox
+            className="p-0"
+            checked={staticRes}
+            onChange={() => {
+              staticRes(!staticRes);
+            }}
+          />
+        </div>
         <TextField
           value={prompt}
           className="w-full"

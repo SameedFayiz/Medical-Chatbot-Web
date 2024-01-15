@@ -2,17 +2,20 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "@/utils/authContext";
 import {
+  Avatar,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  TextField,
 } from "@mui/material";
 
 const ProfileModal = (props) => {
   const [user, setUser] = useContext(AuthContext);
   const [open, setOpen] = props.state;
+  const [emailCheck, setEmailCheck] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -36,9 +39,29 @@ const ProfileModal = (props) => {
           Profile
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
+          <div className="flex justify-center items-center mb-4">
+            <Avatar sx={{ width: 200, height: 200 }} />
+          </div>
+          <div className="mb-4">
+            Username
+            <TextField
+              value={user?.username}
+              disabled
+              margin="none"
+              fullWidth
+              type="email"
+            />
+          </div>
+          <div>
+            Email
+            <TextField
+              value={user?.email}
+              disabled
+              margin="none"
+              fullWidth
+              type="email"
+            />
+          </div>
         </DialogContent>
         <DialogActions>
           <Button
