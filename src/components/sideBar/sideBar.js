@@ -44,12 +44,9 @@ const SideBar = (props) => {
     (async () => {
       if (user) {
         try {
-          let url = process.env.NEXT_PUBLIC_BACKEND_URL
-            ? process.env.NEXT_PUBLIC_BACKEND_URL
-            : process.env.BACKEND_URL
-            ? process.env.BACKEND_URL
-            : "https://defiant-slug-jewelry.cyclic.app/";
-          let myRequest = await fetch(`${url}chats/findByUserId/${user?._id}`);
+          let myRequest = await fetch(
+            `http://localhost:3001/chats/findByUserId/${user?._id}`
+          );
           let res = await myRequest.json();
           if (res.error) {
             throw res;
@@ -71,12 +68,7 @@ const SideBar = (props) => {
   const getChatById = async (id) => {
     setLoad(true);
     try {
-      let url = process.env.NEXT_PUBLIC_BACKEND_URL
-        ? process.env.NEXT_PUBLIC_BACKEND_URL
-        : process.env.BACKEND_URL
-        ? process.env.BACKEND_URL
-        : "https://defiant-slug-jewelry.cyclic.app/";
-      let myRequest = await fetch(`${url}chats/${id}`, {
+      let myRequest = await fetch(`http://localhost:3001/chats/${id}`, {
         method: "GET",
       });
       let res = await myRequest.json();
@@ -93,12 +85,7 @@ const SideBar = (props) => {
 
   const deleteChat = async (param) => {
     try {
-      let url = process.env.NEXT_PUBLIC_BACKEND_URL
-        ? process.env.NEXT_PUBLIC_BACKEND_URL
-        : process.env.BACKEND_URL
-        ? process.env.BACKEND_URL
-        : "https://defiant-slug-jewelry.cyclic.app/";
-      let myRequest = await fetch(`${url}chats/${param}`, {
+      let myRequest = await fetch(`http://localhost:3001/chats/${param}`, {
         method: "DELETE",
       });
       let res = await myRequest.json();
@@ -121,13 +108,8 @@ const SideBar = (props) => {
 
   const createChat = async () => {
     try {
-      let url = process.env.NEXT_PUBLIC_BACKEND_URL
-        ? process.env.NEXT_PUBLIC_BACKEND_URL
-        : process.env.BACKEND_URL
-        ? process.env.BACKEND_URL
-        : "https://defiant-slug-jewelry.cyclic.app/";
       let reqBody = { userId: user?._id };
-      let myRequest = await fetch(`${url}chats/`, {
+      let myRequest = await fetch(`http://localhost:3001/chats/`, {
         method: "POST",
         body: JSON.stringify(reqBody),
         headers: { "Content-Type": "application/json" },

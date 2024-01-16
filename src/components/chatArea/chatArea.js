@@ -50,15 +50,9 @@ const ChatArea = (props) => {
         message: prompt,
         staticRes: staticRes ? true : null,
       };
-      let url = process.env.NEXT_PUBLIC_BACKEND_URL
-        ? process.env.NEXT_PUBLIC_BACKEND_URL
-        : process.env.BACKEND_URL
-        ? process.env.BACKEND_URL
-        : "https://defiant-slug-jewelry.cyclic.app/";
-      let myRequest = await fetch(`${url}chats/sendMessage`, {
+      let myRequest = await fetch(`http://localhost:3001/chats/sendMessage`, {
         body: JSON.stringify(reqBody),
         method: "POST",
-        mode: "cors",
         headers: { "Content-Type": "application/json" },
       });
       let res = await myRequest.json();
